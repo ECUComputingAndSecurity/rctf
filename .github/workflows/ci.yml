@@ -136,11 +136,11 @@ jobs:
         password: ${{ github.token }}
 
     - name: Build & push
-      uses: docker/build-push-action@v1
+      uses: docker/build-push-action@v2
       with:
         # username: ${{ secrets.DOCKERHUB_USERNAME }}
         # password: ${{ secrets.DOCKERHUB_PASS }}
-        repository: ghcr.io/${{ steps.lowercase-repo.outputs.data }}
+        push: true
         # TODO: handle tagging releases correctly
-        tags: latest
+        tags: ghcr.io/${{ steps.lowercase-repo.outputs.data }}:latest
         # TODO: add cache_froms once we have full releases
