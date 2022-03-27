@@ -140,7 +140,7 @@ jobs:
       with:
         # username: ${{ secrets.DOCKERHUB_USERNAME }}
         # password: ${{ secrets.DOCKERHUB_PASS }}
-        # repository: redpwn/rctf
+        repository: ghcr.io/${{ steps.lowercase-repo.outputs.data }}
         # TODO: handle tagging releases correctly
-        tags: ghcr.io/${{ steps.lowercase-repo.outputs.data }}
+        tags: latest
         # TODO: add cache_froms once we have full releases
