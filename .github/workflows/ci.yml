@@ -8,9 +8,6 @@ jobs:
   check-commits:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
-    permissions:
-      contents: read
-      packages: write
     steps:
     - uses: actions/checkout@v2
       with:
@@ -120,6 +117,9 @@ jobs:
       - shellcheck
       - lint
       - test
+    permissions:
+      contents: read
+      packages: write
 
     steps:
     - uses: actions/checkout@v2
