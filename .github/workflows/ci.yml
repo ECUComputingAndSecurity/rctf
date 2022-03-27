@@ -121,12 +121,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1 
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ github.token }}
+
     - name: Build & push
       uses: docker/build-push-action@v1
       with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_PASS }}
-        repository: redpwn/rctf
+        # username: ${{ secrets.DOCKERHUB_USERNAME }}
+        # password: ${{ secrets.DOCKERHUB_PASS }}
+        # repository: redpwn/rctf
         # TODO: handle tagging releases correctly
-        tags: master,${{ github.sha }}
+        tags: ghcr.io/${{ github.repository_owner }}/rctf
         # TODO: add cache_froms once we have full releases
