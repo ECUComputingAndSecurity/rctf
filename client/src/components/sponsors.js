@@ -43,10 +43,14 @@ export default withStyles({
                     <figure class={`u-center ${classes.icon}`}>
                       <img src={sponsor.icon} />
                     </figure>}
-                  <p class='title level'>{sponsor.name}</p>
-                  <small class={classes.description}>
-                    <Markdown content={sponsor.description} />
-                  </small>
+                  {sponsor.name &&
+                    <p class='title level'>
+                      {sponsor.name}
+                    </p>}
+                  {sponsor.description &&
+                    <small class={classes.description}>
+                      <Markdown content={sponsor.description} />
+                    </small>}
                 </div>
               </div>
             </div>
