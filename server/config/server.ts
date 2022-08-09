@@ -17,6 +17,7 @@ export type Sponsor = {
   icon: string;
   description: string;
   small?: boolean;
+  link?: string;
 }
 
 export type ServerConfig = {

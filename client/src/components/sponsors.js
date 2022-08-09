@@ -41,7 +41,9 @@ export default withStyles({
                 <div class='content'>
                   {sponsor.icon &&
                     <figure class={`u-center ${classes.icon}`}>
-                      <img src={sponsor.icon} />
+                      {sponsor.link ? <a href={sponsor.link} target='_blank' rel='noreferrer'>
+                        <img src={sponsor.icon} />
+                      </a> : <img src={sponsor.icon} />}
                     </figure>}
                   {sponsor.name &&
                     <p class='title level'>
