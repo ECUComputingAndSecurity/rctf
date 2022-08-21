@@ -87,7 +87,7 @@ export default {
       await db.solves.newSolve({ id: uuidv4(), challengeid: challengeid, userid: uuid, createdat: new Date() })
 
       const webhookPayload = JSON.stringify({ user, challenge })
-      await fetch(process.env.SOLVE_WEBHOOK, { method: 'POST', body: webhookPayload })
+      await fetch(process.env.SOLVE_WEBHOOK || 'https://github.com', { method: 'POST', body: webhookPayload })
 
       return responses.goodFlag
     } catch (e) {
