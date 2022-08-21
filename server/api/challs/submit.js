@@ -5,6 +5,7 @@ import { responses } from '../../responses'
 import config from '../../config/server'
 import * as timeouts from '../../cache/timeouts'
 import { v4 as uuidv4 } from 'uuid'
+import fetch from 'node-fetch'
 
 export default {
   method: 'POST',
@@ -84,6 +85,10 @@ export default {
 
     try {
       await db.solves.newSolve({ id: uuidv4(), challengeid: challengeid, userid: uuid, createdat: new Date() })
+
+      const webhookPayload = JSON.stringify({ user, challenge })
+      await fetch(process.env.SOLVE_WEBHOOK, { method: 'POST', body: webhookPayload })
+
       return responses.goodFlag
     } catch (e) {
       if (e.constraint === 'uq') {
