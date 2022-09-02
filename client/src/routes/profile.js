@@ -19,7 +19,7 @@ import Rank from '../icons/rank.svg'
 import Ctftime from '../icons/ctftime.svg'
 import useRecaptcha, { RecaptchaLegalNotice } from '../components/recaptcha'
 
-import React from 'react';
+import React from 'react'
 const SummaryCard = memo(withStyles({
   icon: {
     '& svg': {
@@ -290,8 +290,7 @@ const UpdateCard = withStyles({
   )
 })
 
-
-const DiscordIntergration =  withStyles({
+const DiscordIntergration = withStyles({
   form: {
     '& button': {
       margin: 0,
@@ -307,11 +306,14 @@ const DiscordIntergration =  withStyles({
     marginTop: '20px'
   }
 }, ({id}) => {
-  const [Users, setUsers] = React.useState();
-  const [TeamURL, setTeamURL] = React.useState();
-  setTeamURL("https://base.blakemccullough.com/adddiscord?teamid=" + id);
+
+  const [Users, setUsers] = React.useState()
+  const [TeamURL, setTeamURL] = React.useState()
+  const teamURLNew = "https://base.blakemccullough.com/adddiscord?teamid=" + id
+  setTeamURL(teamURLNew)
+  const teamDiscordURL = "https://base.blakemccullough.com/getdiscord?teamid=" + id
   React.useEffect(() => {
-    fetch("https://base.blakemccullough.com/getdiscord?teamid=" + id)
+    fetch(teamDiscordURL)
       .then((res) => res.json())
       .then((json) => setUsers(json));
   }, []);
