@@ -307,8 +307,8 @@ const DiscordIntergration = withStyles({
   }
 }, ({ id }) => {
   const [Users, setUsers] = React.useState()
-  const [TeamURL, setTeamURL] = React.useState()
-  setTeamURL(`https://base.blakemccullough.com/adddiscord?teamid=${id}`)
+  const TeamURL = `https://base.blakemccullough.com/adddiscord?teamid=${id}`
+
   React.useEffect(() => {
     fetch(`https://base.blakemccullough.com/getdiscord?teamid=${id}`)
       .then((res) => res.json())
