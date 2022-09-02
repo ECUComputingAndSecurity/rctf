@@ -63,9 +63,9 @@ const SummaryCard = memo(withStyles({
         </h5>
         {
           ctftimeId &&
-              <a href={`https://ctftime.org/team/${ctftimeId}`} target='_blank' rel='noopener noreferrer'>
-                <Ctftime style='height: 20px;' />
-              </a>
+          <a href={`https://ctftime.org/team/${ctftimeId}`} target='_blank' rel='noopener noreferrer'>
+            <Ctftime style='height: 20px;' />
+          </a>
         }
       </div>
       <div class='action-bar'>
@@ -127,7 +127,7 @@ const TeamCodeCard = withStyles({
         navigator.clipboard.writeText(tokenUrl).then(() => {
           toast({ body: 'Copied team invite URL to clipboard' })
         })
-      } catch {}
+      } catch { }
     }
   }, [toast, tokenUrl])
 
@@ -143,7 +143,7 @@ const TeamCodeCard = withStyles({
 
         {
           reveal &&
-            <TokenPreview token={tokenUrl} />
+          <TokenPreview token={tokenUrl} />
         }
       </div>
     </div>
@@ -214,11 +214,11 @@ const UpdateCard = withStyles({
       let error, data
       if (email === '') {
         setIsButtonDisabled(true)
-        ;({ error, data } = await deleteEmail())
+        ; ({ error, data } = await deleteEmail())
       } else {
         const recaptchaCode = await requestRecaptchaCode?.()
         setIsButtonDisabled(true)
-        ;({ error, data } = await updateEmail({
+        ; ({ error, data } = await updateEmail({
           email,
           recaptchaCode
         }))
@@ -306,42 +306,41 @@ const DiscordIntergration = withStyles({
     marginTop: '20px'
   }
 }, ({ id }) => {
-
   const [Users, setUsers] = React.useState()
   const [TeamURL, setTeamURL] = React.useState()
-  setTeamURL('https://base.blakemccullough.com/adddiscord?teamid=' + id)
-
+  setTeamURL(`https://base.blakemccullough.com/adddiscord?teamid=${id}`)
   React.useEffect(() => {
-    fetch('https://base.blakemccullough.com/getdiscord?teamid=' + id)
+    fetch(`https://base.blakemccullough.com/getdiscord?teamid=${id}`)
       .then((res) => res.json())
-      .then((json) => setUsers(json));
-  }, []);
+      .then((json) => setUsers(json))
+  }, [setUsers, id])
 
   if (!Users) {
-    return "loading..."
+    return 'loading...'
   }
   return (
-    <div class="card">
-    <div class="content">
+    <div class='card'>
+      <div class='content'>
         <p>Discord Intergration</p>
-        <p class="font-thin">Add a Discord account to your team.</p>
-        
-        <a href={TeamURL}>
-            <button class="c01101 btn-info u-center" name="btn" type="submit" value="submit">Link Account</button>
-        </a><a href="https://discord.gg/uc2DX9zN8R">
-            <button class="c01101 btn-info u-center" name="btn" type="submit" value="submit">Join Discord Server</button>
-        </a>
-        <p class="font-thin"><u>Currently Linked:</u></p>
-        <ul>
-    {Users.Results.map((user, index) => {
-      console.log(user)
-    return <li key={index}>{user}</li>
-    })}
-    </ul>
+        <p class='font-thin'>Add a Discord account to your team.</p>
 
+        <a href={TeamURL}>
+          <button class='c01101 btn-info u-center' name='btn' type='submit' value='submit'>Link Account</button>
+        </a>
+        <a href='https://discord.gg/uc2DX9zN8R'>
+          <button class='c01101 btn-info u-center' name='btn' type='submit' value='submit'>Join Discord Server</button>
+        </a>
+        <p class='font-thin'><u>Currently Linked:</u></p>
+        <ul>
+          {Users.Results.map((user, index) => {
+            console.log(user)
+            return <li key={index}>{user}</li>
+          })}
+        </ul>
+
+      </div>
     </div>
-</div>
-  ) 
+  )
 })
 
 const Profile = ({ uuid, classes }) => {
@@ -366,7 +365,7 @@ const Profile = ({ uuid, classes }) => {
   const globalPlace = util.strings.placementString(data.globalPlace)
 
   const isPrivate = uuid === undefined || uuid === 'me'
-  
+
   useEffect(() => {
     setLoaded(false)
     if (isPrivate) {
@@ -403,9 +402,8 @@ const Profile = ({ uuid, classes }) => {
   }, [])
 
   useEffect(() => { document.title = `Profile | ${config.ctfName}` }, [])
-  id:id === undefined ? data.id: id
+
   if (!loaded) return null
-  console.log(id)
   if (error !== null) {
     return (
       <div class='row u-center'>
@@ -427,7 +425,7 @@ const Profile = ({ uuid, classes }) => {
       {isPrivate && (
         <div class={classes.privateCol}>
           <TeamCodeCard {...{ teamToken }} />
-          <DiscordIntergration {...{id}} />
+          <DiscordIntergration {...{ id }} />
           <UpdateCard {...{ name, email, divisionId, allowedDivisions, onUpdate: onProfileUpdate }} />
           {config.ctftime && (
             <CtftimeCard {...{ ctftimeId, onUpdate: onProfileUpdate }} />

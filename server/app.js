@@ -43,7 +43,7 @@ app.register(helmet, {
       styleSrc: ['\'unsafe-inline\'', '\'self\''],
       scriptSrc: ['\'self\'', 'https://www.google-analytics.com', 'https://www.google.com/recaptcha/', 'https://www.gstatic.com/recaptcha/'],
       frameSrc: ['https://www.google.com/recaptcha/'],
-      connectSrc: ['\'self\'', 'https://www.google-analytics.com','https://base.blakemccullough.com'],
+      connectSrc: ['\'self\'', 'https://www.google-analytics.com', 'https://base.blakemccullough.com'],
       imgSrc: ['*', 'data:']
     }
   }
