@@ -305,15 +305,14 @@ const DiscordIntergration = withStyles({
   recaptchaLegalNotice: {
     marginTop: '20px'
   }
-}, ({id}) => {
+}, ({ id }) => {
 
   const [Users, setUsers] = React.useState()
   const [TeamURL, setTeamURL] = React.useState()
-  const teamURLNew = "https://base.blakemccullough.com/adddiscord?teamid=" + id
-  setTeamURL(teamURLNew)
-  const teamDiscordURL = "https://base.blakemccullough.com/getdiscord?teamid=" + id
+  setTeamURL('https://base.blakemccullough.com/adddiscord?teamid=' + id)
+
   React.useEffect(() => {
-    fetch(teamDiscordURL)
+    fetch('https://base.blakemccullough.com/getdiscord?teamid=' + id)
       .then((res) => res.json())
       .then((json) => setUsers(json));
   }, []);
