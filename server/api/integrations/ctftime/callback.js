@@ -4,7 +4,7 @@ import * as auth from '../../../auth'
 import config from '../../../config/server'
 
 const tokenEndpoint = 'https://login.microsoftonline.com/common/oauth2/v2.0/token'
-const userEndpoint = 'https://graph.microsoft.com/me/memberOf'
+const userEndpoint = 'https://graph.microsoft.com/v1.0/me/memberOf/microsoft.graph.group'
 
 export default {
   method: 'POST',
@@ -60,7 +60,7 @@ export default {
       return responses.badCtftimeCode
     }
     const token = await auth.token.getToken(auth.token.tokenKinds.ctftimeAuth, {
-      name: userBody.team.displayName,
+      name: userBody.team.displayName || 'Unknown Team',
       ctftimeId: userBody.team.id
     })
     return [responses.goodCtftimeToken, {
