@@ -21,12 +21,8 @@ const getState = () => Array.from(crypto.getRandomValues(new Uint8Array(16)))
 export default () => {
   const state = getState()
   openPopup({
-    url: 'https://oauth.ctftime.org/authorize' +
-    `?scope=${encodeURIComponent('team:read')}` +
-    `&client_id=${encodeURIComponent(config.ctftime.clientId)}` +
-    `&redirect_uri=${encodeURIComponent(`${location.origin}/integrations/ctftime/callback`)}` +
-    `&state=${encodeURIComponent(state)}`,
-    title: 'CTFtime',
+    url: '/.auth/login/microsoft',
+    title: 'Login with Microsoft',
     w: 600,
     h: 500
   })
