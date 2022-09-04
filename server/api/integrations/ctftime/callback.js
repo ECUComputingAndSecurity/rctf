@@ -35,7 +35,7 @@ export default {
           client_id: config.ctftime.clientId,
           client_secret: config.ctftime.clientSecret,
           code: req.body.ctftimeCode,
-          scope: 'openid',
+          scope: 'User.Read',
           redirect_uri: `${location.origin}/integrations/ctftime/callback`,
           grant_type: 'authorization_code'
         }
