@@ -3,8 +3,8 @@ import { responses } from '../../../responses'
 import * as auth from '../../../auth'
 import config from '../../../config/server'
 
-const tokenEndpoint = 'https://oauth.ctftime.org/token'
-const userEndpoint = 'https://oauth.ctftime.org/user'
+const tokenEndpoint = 'https://login.microsoftonline.com/common/oauth2/v2.0/token'
+const userEndpoint = 'https://graph.microsoft.com/me/memberOf'
 
 export default {
   method: 'POST',
@@ -34,7 +34,10 @@ export default {
         form: {
           client_id: config.ctftime.clientId,
           client_secret: config.ctftime.clientSecret,
-          code: req.body.ctftimeCode
+          code: req.body.ctftimeCode,
+          scope: 'openid',
+          redirect_uri: `${location.origin}/integrations/ctftime/callback`,
+          grant_type: 'authorization_code'
         }
       }))
     } catch (e) {
@@ -43,23 +46,26 @@ export default {
       }
       throw e
     }
-    const { body: userBody } = await got({
+    const { body: graphBody } = await got({
       url: userEndpoint,
       responseType: 'json',
       headers: {
         authorization: `Bearer ${tokenBody.access_token}`
       }
     })
+    const userBody = {
+      team: graphBody[0] || undefined
+    }
     if (userBody.team === undefined) {
       return responses.badCtftimeCode
     }
     const token = await auth.token.getToken(auth.token.tokenKinds.ctftimeAuth, {
-      name: userBody.team.name,
+      name: userBody.team.displayName,
       ctftimeId: userBody.team.id
     })
     return [responses.goodCtftimeToken, {
       ctftimeToken: token,
-      ctftimeName: userBody.team.name,
+      ctftimeName: userBody.team.displayName,
       ctftimeId: userBody.team.id
     }]
   }
