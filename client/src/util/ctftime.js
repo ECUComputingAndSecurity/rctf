@@ -23,7 +23,7 @@ export default () => {
   openPopup({
     url: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize' +
     `?scope=${encodeURIComponent('openid')}` +
-    `&response_type=code` +
+    '&response_type=code' +
     `&client_id=${encodeURIComponent(config.ctftime.clientId)}` +
     `&redirect_uri=${encodeURIComponent(`${location.origin}/integrations/ctftime/callback`)}` +
     `&state=${encodeURIComponent(state)}`,
