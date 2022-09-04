@@ -21,7 +21,7 @@ const getState = () => Array.from(crypto.getRandomValues(new Uint8Array(16)))
 export default () => {
   const state = getState()
   openPopup({
-    url: '/.auth/login/microsoft',
+    url: '/.auth/login/aad',
     title: 'Login with Microsoft',
     w: 600,
     h: 500
