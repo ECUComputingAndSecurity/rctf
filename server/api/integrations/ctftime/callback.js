@@ -60,12 +60,12 @@ export default {
       return responses.badCtftimeCode
     }
     const token = await auth.token.getToken(auth.token.tokenKinds.ctftimeAuth, {
-      name: userBody.team.displayName || 'Unknown Team',
+      name: userBody.team.displayName || 'Unnamed Team',
       ctftimeId: userBody.team.id
     })
     return [responses.goodCtftimeToken, {
       ctftimeToken: token,
-      ctftimeName: userBody.team.displayName,
+      ctftimeName: userBody.team.displayName || 'Unnamed Team',
       ctftimeId: userBody.team.id
     }]
   }
