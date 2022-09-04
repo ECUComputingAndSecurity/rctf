@@ -21,7 +21,12 @@ const getState = () => Array.from(crypto.getRandomValues(new Uint8Array(16)))
 export default () => {
   const state = getState()
   openPopup({
-    url: '/.auth/login/aad',
+    url: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize' +
+    `?scope=${encodeURIComponent('openid')}` +
+    `&response_type=code` +
+    `&client_id=${encodeURIComponent(config.ctftime.clientId)}` +
+    `&redirect_uri=${encodeURIComponent(`${location.origin}/integrations/ctftime/callback`)}` +
+    `&state=${encodeURIComponent(state)}`,
     title: 'Login with Microsoft',
     w: 600,
     h: 500
