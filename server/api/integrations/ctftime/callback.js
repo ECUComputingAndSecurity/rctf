@@ -46,7 +46,7 @@ export default {
       }
       throw e
     }
-    const { body: graphBody } = await got({
+    const { body: { value: graphBody } } = await got({
       url: userEndpoint,
       responseType: 'json',
       headers: {
