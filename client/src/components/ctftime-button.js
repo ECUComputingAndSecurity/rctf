@@ -1,5 +1,5 @@
 import { Component } from 'preact'
-import Ctftime from '../icons/ctftime.svg'
+import Ctftime from '../icons/mslogin.svg'
 import openPopup from '../util/ctftime'
 import withStyles from '../components/jss'
 import { ctftimeCallback } from '../api/auth'

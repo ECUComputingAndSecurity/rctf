@@ -7,7 +7,6 @@ import { privateProfile, publicProfile, updateAccount, updateEmail, deleteEmail 
 import { useToast } from '../components/toast'
 import Form from '../components/form'
 import MembersCard from '../components/profile/members-card'
-import CtftimeCard from '../components/profile/ctftime-card'
 import { PublicSolvesCard, PrivateSolvesCard } from '../components/profile/solves-card'
 import TokenPreview from '../components/token-preview'
 import * as util from '../util'
@@ -16,7 +15,6 @@ import AddressBook from '../icons/address-book.svg'
 import UserCircle from '../icons/user-circle.svg'
 import EnvelopeOpen from '../icons/envelope-open.svg'
 import Rank from '../icons/rank.svg'
-import Ctftime from '../icons/ctftime.svg'
 import useRecaptcha, { RecaptchaLegalNotice } from '../components/recaptcha'
 
 import React from 'react'
@@ -61,12 +59,6 @@ const SummaryCard = memo(withStyles({
           title={name}>
           {name}
         </h5>
-        {
-          ctftimeId &&
-          <a href={`https://ctftime.org/team/${ctftimeId}`} target='_blank' rel='noopener noreferrer'>
-            <Ctftime style='height: 20px;' />
-          </a>
-        }
       </div>
       <div class='action-bar'>
         <p>
@@ -427,9 +419,6 @@ const Profile = ({ uuid, classes }) => {
           <TeamCodeCard {...{ teamToken }} />
           <DiscordIntergration {...{ id }} />
           <UpdateCard {...{ name, email, divisionId, allowedDivisions, onUpdate: onProfileUpdate }} />
-          {config.ctftime && (
-            <CtftimeCard {...{ ctftimeId, onUpdate: onProfileUpdate }} />
-          )}
         </div>
       )}
       <div class={classes.col}>
