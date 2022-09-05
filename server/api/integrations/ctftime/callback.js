@@ -36,7 +36,7 @@ export default {
           client_secret: config.ctftime.clientSecret,
           code: req.body.ctftimeCode,
           scope: 'User.Read',
-          redirect_uri: `${config.origin}/integrations/ctftime/callback`,
+          redirect_uri: 'https://ctf.pecan.tplant.com.au/integrations/ctftime/callback',
           grant_type: 'authorization_code'
         }
       }))
