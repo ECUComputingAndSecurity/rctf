@@ -1,4 +1,4 @@
-import got from 'got'
+import fetch from 'node-fetch'
 import { responses } from '../../../responses'
 import * as auth from '../../../auth'
 import config from '../../../config/server'
@@ -25,34 +25,26 @@ export default {
     if (!config.ctftime) {
       return responses.badEndpoint
     }
-    let tokenBody
-    try {
-      ({ body: tokenBody } = await got({
-        url: tokenEndpoint,
-        method: 'POST',
-        responseType: 'json',
-        form: {
-          client_id: config.ctftime.clientId,
-          client_secret: config.ctftime.clientSecret,
-          code: req.body.ctftimeCode,
-          scope: 'User.Read',
-          redirect_uri: 'https://ctf.pecan.tplant.com.au/integrations/ctftime/callback',
-          grant_type: 'authorization_code'
-        }
-      }))
-    } catch (e) {
-      if (e instanceof got.HTTPError && e.response.statusCode === 401) {
-        return responses.badCtftimeCode
-      }
-      throw e
+    const res = await fetch(tokenEndpoint, {
+      method: 'POST',
+      body: new URLSearchParams({
+        client_id: config.ctftime.clientId,
+        client_secret: config.ctftime.clientSecret,
+        code: req.body.ctftimeCode,
+        scope: 'User.Read',
+        redirect_uri: `${config.origin}/integrations/ctftime/callback`,
+        grant_type: 'authorization_code'
+      })
+    })
+    if (res.status === 401) {
+      return responses.badCtftimeCode
     }
-    const { body: { value: graphBody } } = await got({
-      url: userEndpoint,
-      responseType: 'json',
+    const tokenBody = await res.json()
+    const { value: graphBody } = await (await fetch(userEndpoint, {
       headers: {
         authorization: `Bearer ${tokenBody.access_token}`
       }
-    })
+    })).json()
     const userBody = {
       team: graphBody[0] || undefined
     }
