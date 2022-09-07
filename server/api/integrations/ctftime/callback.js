@@ -31,7 +31,7 @@ export default {
         client_id: config.ctftime.clientId,
         client_secret: config.ctftime.clientSecret,
         code: req.body.ctftimeCode,
-        scope: 'User.Read',
+        scope: 'User.Read GroupMember.Read.All',
         redirect_uri: `${config.origin}/integrations/ctftime/callback`,
         grant_type: 'authorization_code'
       })
@@ -52,12 +52,12 @@ export default {
       return responses.badCtftimeCode
     }
     const token = await auth.token.getToken(auth.token.tokenKinds.ctftimeAuth, {
-      name: userBody.team.displayName || 'Unnamed Team',
+      name: userBody.team.displayName || 'Team ',
       ctftimeId: userBody.team.id
     })
     return [responses.goodCtftimeToken, {
       ctftimeToken: token,
-      ctftimeName: userBody.team.displayName || 'Unnamed Team',
+      ctftimeName: userBody.team.displayName || 'Team ',
       ctftimeId: userBody.team.id
     }]
   }
