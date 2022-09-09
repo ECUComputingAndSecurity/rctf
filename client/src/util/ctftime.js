@@ -26,7 +26,8 @@ export default () => {
     '&response_type=code' +
     `&client_id=${encodeURIComponent(config.ctftime.clientId)}` +
     `&redirect_uri=${encodeURIComponent(`${location.origin}/integrations/ctftime/callback`)}` +
-    `&state=${encodeURIComponent(state)}`,
+    `&state=${encodeURIComponent(state)}` +
+    '&prompt=select_account',
     title: 'Login with Microsoft',
     w: 600,
     h: 500
